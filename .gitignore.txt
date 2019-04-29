@@ -1,4 +1,0 @@
-bin
-obj
-*exe
-Demo tetris/.vs/Demo tetris/DesignTimeBuild/.dtbcache
