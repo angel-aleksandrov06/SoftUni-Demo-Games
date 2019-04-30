@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\SoftUni-HomerWorks\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
+      "projectUniqueName": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
       "projectName": "Demo tetris",
-      "projectPath": "D:\\GitHub\\SoftUni-HomerWorks\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
+      "projectPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
       "packagesPath": "C:\\Users\\Angel\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\SoftUni-HomerWorks\\CSharp Demo Games\\Demo tetris\\Demo tetris\\obj\\",
+      "outputPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
