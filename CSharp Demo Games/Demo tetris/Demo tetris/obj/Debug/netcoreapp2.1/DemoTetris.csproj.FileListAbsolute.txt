@@ -1,0 +1,10 @@
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.AssemblyInfoInputs.cache
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.AssemblyInfo.cs
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\DemoTetris.deps.json
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\DemoTetris.runtimeconfig.json
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\DemoTetris.runtimeconfig.dev.json
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\DemoTetris.dll
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\DemoTetris.pdb
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.dll
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.pdb
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.csprojAssemblyReference.cache

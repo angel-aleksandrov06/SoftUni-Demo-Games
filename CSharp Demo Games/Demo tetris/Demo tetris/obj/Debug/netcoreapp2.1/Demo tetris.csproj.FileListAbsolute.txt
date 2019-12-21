@@ -26,7 +26,6 @@ D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\Demo tetris.dll
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug\netcoreapp2.1\Demo tetris.pdb
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\Demo tetris.csprojAssemblyReference.cache
-D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\Demo tetris.csproj.CoreCompileInputs.cache
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\Demo tetris.AssemblyInfoInputs.cache
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\Demo tetris.AssemblyInfo.cs
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\Demo tetris.dll

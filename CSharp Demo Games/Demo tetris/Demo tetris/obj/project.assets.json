@@ -694,9 +694,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
-      "projectName": "Demo tetris",
-      "projectPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
+      "projectUniqueName": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\DemoTetris.csproj",
+      "projectName": "DemoTetris",
+      "projectPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\DemoTetris.csproj",
       "packagesPath": "C:\\Users\\Angel\\.nuget\\packages\\",
       "outputPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\obj\\",
       "projectStyle": "PackageReference",
@@ -729,16 +729,23 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj": {}
+    "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\DemoTetris.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj": {
+    "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\DemoTetris.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
-        "projectName": "Demo tetris",
-        "projectPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\Demo tetris.csproj",
+        "projectUniqueName": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\DemoTetris.csproj",
+        "projectName": "DemoTetris",
+        "projectPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\DemoTetris.csproj",
         "packagesPath": "C:\\Users\\Angel\\.nuget\\packages\\",
         "outputPath": "D:\\GitHub\\SoftUni-Demo-Games\\CSharp Demo Games\\Demo tetris\\Demo tetris\\obj\\",
         "projectStyle": "PackageReference",
