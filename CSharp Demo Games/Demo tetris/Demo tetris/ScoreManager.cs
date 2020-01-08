@@ -12,9 +12,20 @@ namespace DemoTetris
         public ScoreManager(string highScoreFile)
         {
             this.highScoreFile = highScoreFile;
+            this.HighScore = this.GetHighScore();
         }
 
-        public int GetHighScore()
+        public int HighScore { get; set; }
+
+        public void UpdateHightScore(int highScoreCandidate)
+        {
+            if (highScoreCandidate > this.HighScore)
+            {
+                this.HighScore = highScoreCandidate;
+            }
+        }
+
+        private int GetHighScore()
         {
             var highScore = 0;
 
