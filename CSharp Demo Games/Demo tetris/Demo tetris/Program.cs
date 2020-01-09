@@ -132,14 +132,7 @@ namespace DemoTetris
                     if (Collision(State.CurrentFigure)) // game is over
                     {
                         ScoreManager.Add(State.Score);
-
-                        var scoreAsString = State.Score.ToString();
-                        scoreAsString += new string(' ', 7 - scoreAsString.Length);
-                        Write("╔═════════╗", 5, 5);
-                        Write("║ Game    ║", 6, 5);
-                        Write("║   over! ║", 7, 5);
-                        Write($"║ {scoreAsString} ║", 8, 5);
-                        Write("╚═════════╝", 9, 5);
+                        tetrisConsoleWriter.WriteGameOver(State.Score);
                         Thread.Sleep(100000);
                         return;
                     }
@@ -148,8 +141,8 @@ namespace DemoTetris
                 // Redraw UI
                 tetrisConsoleWriter.DrawBorder( TetrisCols, TetrisRows, InfoCols);
                 tetrisConsoleWriter.DrawGameState(3 + TetrisCols, State, ScoreManager.HighScore);
-                DrawTetrisField();
-                DrawCurrentFigure();
+                tetrisConsoleWriter.DrawTetrisField(State.TetrisField);
+                tetrisConsoleWriter.DrawCurrentFigure(State.CurrentFigure, State.CurrentFigureRow, State.CurrentFigureCol);
 
                 Thread.Sleep(40);
             }
@@ -247,40 +240,7 @@ namespace DemoTetris
             return false;
         }
 
-        static void DrawTetrisField()
-        {
-            for (int row = 0; row < State.TetrisField.GetLength(0); row++)
-            {
-                string line = "";
-                for (int col = 0; col < State.TetrisField.GetLength(1); col++)
-                {
-                    if (State.TetrisField[row, col])
-                    {
-                        line += "*";
-                    }
-                    else
-                    {
-                        line += " ";
-                    }
-                }
-
-                Write(line, row + 1, 1);
-            }
-        }
-
-        static void DrawCurrentFigure()
-        {
-            for (int row = 0; row < State.CurrentFigure.GetLength(0); row++)
-            {
-                for (int col = 0; col < State.CurrentFigure.GetLength(1); col++)
-                {
-                    if (State.CurrentFigure[row, col])
-                    {
-                        Write("*", row + 1 + State.CurrentFigureRow, 1 + State.CurrentFigureCol + col);
-                    }
-                }
-            }
-        }
+        
 
     }
 }

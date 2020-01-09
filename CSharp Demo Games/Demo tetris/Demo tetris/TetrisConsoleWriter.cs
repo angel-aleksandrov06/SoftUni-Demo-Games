@@ -57,6 +57,52 @@ namespace DemoTetris
             Console.Write(endLine);
         }
 
+        public void WriteGameOver(int score)
+        {
+            var scoreAsString = score.ToString();
+            scoreAsString += new string(' ', 7 - scoreAsString.Length);
+            Write("╔═════════╗", 5, 5);
+            Write("║ Game    ║", 6, 5);
+            Write("║   over! ║", 7, 5);
+            Write($"║ {scoreAsString} ║", 8, 5);
+            Write("╚═════════╝", 9, 5);
+        }
+
+        public void DrawTetrisField(bool[,] tetrisField)
+        {
+            for (int row = 0; row < tetrisField.GetLength(0); row++)
+            {
+                string line = "";
+                for (int col = 0; col < tetrisField.GetLength(1); col++)
+                {
+                    if (tetrisField[row, col])
+                    {
+                        line += "*";
+                    }
+                    else
+                    {
+                        line += " ";
+                    }
+                }
+
+                this.Write(line, row + 1, 1);
+            }
+        }
+
+        public void DrawCurrentFigure(bool[,] currentFigure, int currentFigureRow, int currentFigureColumn)
+        {
+            for (int row = 0; row < currentFigure.GetLength(0); row++)
+            {
+                for (int col = 0; col < currentFigure.GetLength(1); col++)
+                {
+                    if (currentFigure[row, col])
+                    {
+                        Write("*", row + 1 + currentFigureRow, 1 + currentFigureColumn + col);
+                    }
+                }
+            }
+        }
+
         private void Write(string text, int row, int col)
         {
             Console.SetCursorPosition(col, row);
