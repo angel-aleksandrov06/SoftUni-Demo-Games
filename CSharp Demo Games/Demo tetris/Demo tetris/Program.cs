@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace DemoTetris
 {
-    class Program
+     public static class Program
     {
         // Settings
         static int TetrisRows = 20;
@@ -58,10 +58,12 @@ namespace DemoTetris
         static ScoreManager ScoreManager = new ScoreManager("scores.txt");
         static Random Random = new Random();
 
-        static void Main(string[] args)
+        public static void Main()
         {
             var musicPlayer = new MusicPlayer();
             musicPlayer.Play();
+
+            var tetrisConsoleWriter = new TetrisConsoleWriter();
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Title = "Tetris v1.0";
@@ -144,8 +146,8 @@ namespace DemoTetris
                 }
 
                 // Redraw UI
-                DrawBorder();
-                DrawInfo();
+                tetrisConsoleWriter.DrawBorder( TetrisCols, TetrisRows, InfoCols);
+                tetrisConsoleWriter.DrawGameState(3 + TetrisCols, State, ScoreManager.HighScore);
                 DrawTetrisField();
                 DrawCurrentFigure();
 
@@ -245,57 +247,6 @@ namespace DemoTetris
             return false;
         }
 
-        static void DrawBorder()
-        {
-            Console.SetCursorPosition(0, 0);
-            string line = "╔";
-            line += new string('═', TetrisCols);
-            /* for (int i = 0; i < TetrisCols; i++)
-            {
-                line += "═";
-            } */
-
-            line += "╦";
-            line += new string('═', InfoCols);
-            line += "╗";
-            Console.Write(line);
-
-            for (int i = 0; i < TetrisRows; i++)
-            {
-                string middleLine = "║";
-                middleLine += new string(' ', TetrisCols);
-                middleLine += "║";
-                middleLine += new string(' ', InfoCols);
-                middleLine += "║";
-                Console.Write(middleLine);
-            }
-
-            string endLine = "╚";
-            endLine += new string('═', TetrisCols);
-            endLine += "╩";
-            endLine += new string('═', InfoCols);
-            endLine += "╝";
-            Console.Write(endLine);
-        }
-
-        static void DrawInfo()
-        {
-            Write("Level:", 1, 3 + TetrisCols);
-            Write(State.Level.ToString(), 2, 3 + TetrisCols);
-            Write("Score:", 4, 3 + TetrisCols);
-            Write(State.Score.ToString(), 5, 3 + TetrisCols);
-            Write("Best:", 7, 3 + TetrisCols);
-            Write(ScoreManager.HighScore.ToString(), 8, 3 + TetrisCols);
-            Write("Frame:", 10, 3 + TetrisCols);
-            Write(State.Frame.ToString() + " / " + (State.FramesToMoveFigure - State.Level).ToString(), 11, 3 + TetrisCols);
-            Write("Position:", 13, 3 + TetrisCols);
-            Write($"{State.CurrentFigureRow}, {State.CurrentFigureCol}", 14, 3 + TetrisCols);
-            Write("Keys:", 16, 3 + TetrisCols);
-            Write($"  ^ ", 18, 3 + TetrisCols);
-            Write($"<   > ", 19, 3 + TetrisCols);
-            Write($"  v  ", 20, 3 + TetrisCols);
-        }
-
         static void DrawTetrisField()
         {
             for (int row = 0; row < State.TetrisField.GetLength(0); row++)
@@ -331,10 +282,5 @@ namespace DemoTetris
             }
         }
 
-        static void Write(string text, int row, int col)
-        {
-            Console.SetCursorPosition(col, row);
-            Console.Write(text);
-        }
     }
 }
