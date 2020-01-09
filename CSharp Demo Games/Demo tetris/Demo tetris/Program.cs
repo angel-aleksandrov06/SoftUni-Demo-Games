@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace DemoTetris
 {
-     public static class Program
+    public static class Program
     {
         // Settings
         static int TetrisRows = 20;
@@ -14,42 +14,42 @@ namespace DemoTetris
         static int InfoCols = 10;
         static int ConsoleRows = 1 + TetrisRows + 1;
         static int ConsoleCols = 1 + TetrisCols + 1 + InfoCols + 1;
-        static List<bool[,]> TetrisFigures = new List<bool[,]>()
+        static List<Tetrominoe> TetrisFigures = new List<Tetrominoe>()
             {
-                new bool[,] // ----
+                new Tetrominoe(new bool[,] // ----
                 {
                     { true, true, true, true }
-                },
-                new bool[,] // O
+                }),
+                new Tetrominoe(new bool[,] // O
                 {
                     { true, true },
                     { true, true }
-                },
-                new bool[,] // T
+                }),
+                new Tetrominoe(new bool[,] // T
                 {
                     { false, true, false },
                     { true, true, true },
-                },
-                new bool[,] // S
+                }),
+                new Tetrominoe(new bool[,] // S
                 {
                     { false, true, true, },
                     { true, true, false, },
-                },
-                new bool[,] // Z
+                }),
+                new Tetrominoe(new bool[,] // Z
                 {
                     { true, true, false },
                     { false, true, true },
-                },
-                new bool[,] // J
+                }),
+                new Tetrominoe(new bool[,] // J
                 {
                     { true, false, false },
                     { true, true, true }
-                },
-                new bool[,] // L
+                }),
+                new Tetrominoe(new bool[,] // L
                 {
                     { false, false, true },
                     { true, true, true }
-                },
+                }),
             };
         static int[] ScorePerLines = { 0, 40, 100, 300, 1200 };
 
@@ -96,7 +96,7 @@ namespace DemoTetris
                     }
                     if (key.Key == ConsoleKey.RightArrow || key.Key == ConsoleKey.D)
                     {
-                        if (State.CurrentFigureCol < TetrisCols - State.CurrentFigure.GetLength(1))
+                        if (State.CurrentFigureCol < TetrisCols - State.CurrentFigure.Height)
                         {
                             State.CurrentFigureCol++;
                         }
@@ -109,7 +109,11 @@ namespace DemoTetris
                     }
                     if (key.Key == ConsoleKey.Spacebar || key.Key == ConsoleKey.UpArrow || key.Key == ConsoleKey.W)
                     {
-                        RotateCurrentFigure();
+                        var newFigure =  State.CurrentFigure.GetRotate();
+                        if (!Collision(State.CurrentFigure))
+                        {
+                            State.CurrentFigure = newFigure;
+                        }
                     }
                 }
 
@@ -132,14 +136,14 @@ namespace DemoTetris
                     if (Collision(State.CurrentFigure)) // game is over
                     {
                         ScoreManager.Add(State.Score);
-                        tetrisConsoleWriter.WriteGameOver(State.Score);
+                        tetrisConsoleWriter.WriteGameOver(State.Score, TetrisRows / 2 - 3, TetrisCols + 3 + InfoCols / 2 - 6);
                         Thread.Sleep(100000);
                         return;
                     }
                 }
 
                 // Redraw UI
-                tetrisConsoleWriter.DrawBorder( TetrisCols, TetrisRows, InfoCols);
+                tetrisConsoleWriter.DrawBorder(TetrisCols, TetrisRows, InfoCols);
                 tetrisConsoleWriter.DrawGameState(3 + TetrisCols, State, ScoreManager.HighScore);
                 tetrisConsoleWriter.DrawTetrisField(State.TetrisField);
                 tetrisConsoleWriter.DrawCurrentFigure(State.CurrentFigure, State.CurrentFigureRow, State.CurrentFigureCol);
@@ -148,22 +152,7 @@ namespace DemoTetris
             }
         }
 
-        private static void RotateCurrentFigure()
-        {
-            var newFigure = new bool[State.CurrentFigure.GetLength(1), State.CurrentFigure.GetLength(0)];
-            for (int row = 0; row < State.CurrentFigure.GetLength(0); row++)
-            {
-                for (int col = 0; col < State.CurrentFigure.GetLength(1); col++)
-                {
-                    newFigure[col, State.CurrentFigure.GetLength(0) - row - 1] = State.CurrentFigure[row, col];
-                }
-            }
-
-            if (!Collision(newFigure))
-            {
-                State.CurrentFigure = newFigure;
-            }
-        }
+        
 
         private static int CheckForFullLines() // 0, 1, 2, 3, 4
         {
@@ -200,11 +189,11 @@ namespace DemoTetris
 
         static void AddCurrentFigureToTetrisField()
         {
-            for (int row = 0; row < State.CurrentFigure.GetLength(0); row++)
+            for (int row = 0; row < State.CurrentFigure.Width; row++)
             {
-                for (int col = 0; col < State.CurrentFigure.GetLength(1); col++)
+                for (int col = 0; col < State.CurrentFigure.Height; col++)
                 {
-                    if (State.CurrentFigure[row, col])
+                    if (State.CurrentFigure.Body[row, col])
                     {
                         State.TetrisField[State.CurrentFigureRow + row, State.CurrentFigureCol + col] = true;
                     }
@@ -212,23 +201,23 @@ namespace DemoTetris
             }
         }
 
-        static bool Collision(bool[,] figure)
+        static bool Collision(Tetrominoe figure)
         {
-            if (State.CurrentFigureCol > TetrisCols - figure.GetLength(1))
+            if (State.CurrentFigureCol > TetrisCols - figure.Height)
             {
                 return true;
             }
 
-            if (State.CurrentFigureRow + figure.GetLength(0) == TetrisRows)
+            if (State.CurrentFigureRow + figure.Width == TetrisRows)
             {
                 return true;
             }
 
-            for (int row = 0; row < figure.GetLength(0); row++)
+            for (int row = 0; row < figure.Width; row++)
             {
-                for (int col = 0; col < figure.GetLength(1); col++)
+                for (int col = 0; col < figure.Height; col++)
                 {
-                    if (figure[row, col] &&
+                    if (figure.Body[row, col] &&
                         State.TetrisField[State.CurrentFigureRow + row + 1, State.CurrentFigureCol + col])
                     {
                         return true;
@@ -240,7 +229,7 @@ namespace DemoTetris
             return false;
         }
 
-        
+
 
     }
 }

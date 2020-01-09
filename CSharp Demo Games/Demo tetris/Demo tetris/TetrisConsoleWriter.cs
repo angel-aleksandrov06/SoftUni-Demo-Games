@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DemoTetris
 {
@@ -24,7 +22,7 @@ namespace DemoTetris
             this.Write($"  v  ", 20, startColumn);
         }
 
-        public void DrawBorder( int tetrisColumns, int tetrisRows, int infoColumns)
+        public void DrawBorder(int tetrisColumns, int tetrisRows, int infoColumns)
         {
             Console.SetCursorPosition(0, 0);
             string line = "╔";
@@ -57,15 +55,15 @@ namespace DemoTetris
             Console.Write(endLine);
         }
 
-        public void WriteGameOver(int score)
+        public void WriteGameOver(int score, int row, int column)
         {
             var scoreAsString = score.ToString();
-            scoreAsString += new string(' ', 7 - scoreAsString.Length);
-            Write("╔═════════╗", 5, 5);
-            Write("║ Game    ║", 6, 5);
-            Write("║   over! ║", 7, 5);
-            Write($"║ {scoreAsString} ║", 8, 5);
-            Write("╚═════════╝", 9, 5);
+            scoreAsString = new string(' ', 7 - scoreAsString.Length) + scoreAsString;
+            Write("╔═════════╗", row, column);
+            Write("║ Game    ║", row + 1, column);
+            Write("║   over! ║", row + 2, column);
+            Write($"║ {scoreAsString} ║", row + 3, column);
+            Write("╚═════════╝", row + 4, column);
         }
 
         public void DrawTetrisField(bool[,] tetrisField)
@@ -89,13 +87,13 @@ namespace DemoTetris
             }
         }
 
-        public void DrawCurrentFigure(bool[,] currentFigure, int currentFigureRow, int currentFigureColumn)
+        public void DrawCurrentFigure(Tetrominoe currentFigure, int currentFigureRow, int currentFigureColumn)
         {
-            for (int row = 0; row < currentFigure.GetLength(0); row++)
+            for (int row = 0; row < currentFigure.Width; row++)
             {
-                for (int col = 0; col < currentFigure.GetLength(1); col++)
+                for (int col = 0; col < currentFigure.Height; col++)
                 {
-                    if (currentFigure[row, col])
+                    if (currentFigure.Body[row, col])
                     {
                         Write("*", row + 1 + currentFigureRow, 1 + currentFigureColumn + col);
                     }

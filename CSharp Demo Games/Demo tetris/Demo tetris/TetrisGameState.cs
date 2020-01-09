@@ -20,7 +20,7 @@ namespace DemoTetris
         public int Frame { get; set; }
         public int Level { get; private set; }
         public int FramesToMoveFigure { get; private set; }
-        public bool[,] CurrentFigure { get; set; }
+        public Tetrominoe CurrentFigure { get; set; }
         public int CurrentFigureRow { get; set; }
         public int CurrentFigureCol { get; set; }
         public bool[,] TetrisField { get; private set; }
