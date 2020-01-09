@@ -4,14 +4,45 @@ namespace DemoTetris
 {
     public class TetrisConsoleWriter
     {
-        public void DrawGameState(int startColumn, TetrisGameState state, int highScore)
+        private int tetrisRows;
+        private int tetrisColumns;
+        private int infoColumns;
+        private int consoleRows;
+        private int consoleColumns;
+
+        public TetrisConsoleWriter(int tetrisRows, int tetrisColumns, int infoColumns = 11)
+        {
+            this.tetrisRows = tetrisRows;
+            this.tetrisColumns = tetrisColumns;
+            this.infoColumns = infoColumns;
+            this.consoleRows = 1 + this.tetrisRows + 1;
+            this.consoleColumns = 1 + this.tetrisColumns + 1 + this.infoColumns + 1;
+
+            Console.WindowHeight = this.consoleRows + 1;
+            Console.WindowWidth = this.consoleColumns;
+            Console.BufferHeight = this.consoleRows + 1;
+            Console.BufferWidth = this.consoleColumns;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Title = "Tetris v1.0";
+            Console.CursorVisible = false;
+        }
+
+        public void DrawAll(TetrisGameState state, ScoreManager scoreManager)
+        {
+            this.DrawBorder();
+            this.DrawGameState(3 + this.tetrisColumns, state, scoreManager);
+            this.DrawTetrisField(state.TetrisField);
+            this.DrawCurrentFigure(state.CurrentFigure, state.CurrentFigureRow, state.CurrentFigureCol);
+        }
+
+        public void DrawGameState(int startColumn, TetrisGameState state, ScoreManager scoreManager)
         {
             this.Write("Level:", 1, startColumn);
             this.Write(state.Level.ToString(), 2, startColumn);
             this.Write("Score:", 4, startColumn);
-            this.Write(state.Score.ToString(), 5, startColumn);
+            this.Write(scoreManager.Score.ToString(), 5, startColumn);
             this.Write("Best:", 7, startColumn);
-            this.Write(highScore.ToString(), 8, startColumn);
+            this.Write(scoreManager.HighScore.ToString(), 8, startColumn);
             this.Write("Frame:", 10, startColumn);
             this.Write(state.Frame.ToString() + " / " + (state.FramesToMoveFigure - state.Level).ToString(), 11, startColumn);
             this.Write("Position:", 13, startColumn);
@@ -22,41 +53,44 @@ namespace DemoTetris
             this.Write($"  v  ", 20, startColumn);
         }
 
-        public void DrawBorder(int tetrisColumns, int tetrisRows, int infoColumns)
+        public void DrawBorder()
         {
             Console.SetCursorPosition(0, 0);
             string line = "╔";
-            line += new string('═', tetrisColumns);
+            line += new string('═', this.tetrisColumns);
             /* for (int i = 0; i < TetrisCols; i++)
             {
                 line += "═";
             } */
 
             line += "╦";
-            line += new string('═', infoColumns);
+            line += new string('═', this.infoColumns);
             line += "╗";
             Console.Write(line);
 
-            for (int i = 0; i < tetrisRows; i++)
+            for (int i = 0; i < this.tetrisRows; i++)
             {
                 string middleLine = "║";
-                middleLine += new string(' ', tetrisColumns);
+                middleLine += new string(' ', this.tetrisColumns);
                 middleLine += "║";
-                middleLine += new string(' ', infoColumns);
+                middleLine += new string(' ', this.infoColumns);
                 middleLine += "║";
                 Console.Write(middleLine);
             }
 
             string endLine = "╚";
-            endLine += new string('═', tetrisColumns);
+            endLine += new string('═', this.tetrisColumns);
             endLine += "╩";
-            endLine += new string('═', infoColumns);
+            endLine += new string('═', this.infoColumns);
             endLine += "╝";
             Console.Write(endLine);
         }
 
-        public void WriteGameOver(int score, int row, int column)
+        public void WriteGameOver(int score)
         {
+            int row = this.tetrisRows / 2 - 3;
+            int column = (this.tetrisColumns + 3 + this.infoColumns) / 2 - 6;
+
             var scoreAsString = score.ToString();
             scoreAsString = new string(' ', 7 - scoreAsString.Length) + scoreAsString;
             Write("╔═════════╗", row, column);

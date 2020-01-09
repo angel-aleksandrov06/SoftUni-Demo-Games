@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace DemoTetris
 {
+    // TODO: When we have colision during moving (left / right)we have unusual behaviour
     public static class Program
     {
         // Settings
         static int TetrisRows = 20;
         static int TetrisCols = 10;
-        static int InfoCols = 10;
-        static int ConsoleRows = 1 + TetrisRows + 1;
-        static int ConsoleCols = 1 + TetrisCols + 1 + InfoCols + 1;
         static List<Tetrominoe> TetrisFigures = new List<Tetrominoe>()
             {
                 new Tetrominoe(new bool[,] // ----
@@ -55,29 +51,20 @@ namespace DemoTetris
 
         // State
         static TetrisGameState State = new TetrisGameState(TetrisRows, TetrisCols);
-        static ScoreManager ScoreManager = new ScoreManager("scores.txt");
-        static Random Random = new Random();
-
+        
         public static void Main()
         {
+            ScoreManager scoreManager = new ScoreManager("scores.txt");
             var musicPlayer = new MusicPlayer();
             musicPlayer.Play();
 
-            var tetrisConsoleWriter = new TetrisConsoleWriter();
-
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Title = "Tetris v1.0";
-            Console.CursorVisible = false;
-            Console.WindowHeight = ConsoleRows + 1;
-            Console.WindowWidth = ConsoleCols;
-            Console.BufferHeight = ConsoleRows + 1;
-            Console.BufferWidth = ConsoleCols;
-            State.CurrentFigure = TetrisFigures[Random.Next(0, TetrisFigures.Count)];
-
+            var tetrisConsoleWriter = new TetrisConsoleWriter(TetrisRows, TetrisCols);
+            var random = new Random();
+            State.CurrentFigure = TetrisFigures[random.Next(0, TetrisFigures.Count)];
             while (true)
             {
                 State.Frame++;
-                State.UpdateLevel();
+                State.UpdateLevel(scoreManager.Score);
                 // Read user input
                 if (Console.KeyAvailable)
                 {
@@ -104,7 +91,7 @@ namespace DemoTetris
                     if (key.Key == ConsoleKey.DownArrow || key.Key == ConsoleKey.S)
                     {
                         State.Frame = 1;
-                        State.Score += State.Level;
+                        scoreManager.AddToScore(State.Level);
                         State.CurrentFigureRow++;
                     }
                     if (key.Key == ConsoleKey.Spacebar || key.Key == ConsoleKey.UpArrow || key.Key == ConsoleKey.W)
@@ -128,31 +115,25 @@ namespace DemoTetris
                 {
                     AddCurrentFigureToTetrisField();
                     int lines = CheckForFullLines();
-                    State.Score += ScorePerLines[lines] * State.Level;
-                    ScoreManager.UpdateHightScore(State.Score);
-                    State.CurrentFigure = TetrisFigures[Random.Next(0, TetrisFigures.Count)];
+                    scoreManager.AddToScore(ScorePerLines[lines] * State.Level);
+                    State.CurrentFigure = TetrisFigures[random.Next(0, TetrisFigures.Count)];
                     State.CurrentFigureRow = 0;
                     State.CurrentFigureCol = 0;
                     if (Collision(State.CurrentFigure)) // game is over
                     {
-                        ScoreManager.Add(State.Score);
-                        tetrisConsoleWriter.WriteGameOver(State.Score, TetrisRows / 2 - 3, TetrisCols + 3 + InfoCols / 2 - 6);
+                        scoreManager.AddToHighScore();
+                        tetrisConsoleWriter.DrawAll(State, scoreManager);
+                        tetrisConsoleWriter.WriteGameOver(scoreManager.Score);
                         Thread.Sleep(100000);
                         return;
                     }
                 }
 
                 // Redraw UI
-                tetrisConsoleWriter.DrawBorder(TetrisCols, TetrisRows, InfoCols);
-                tetrisConsoleWriter.DrawGameState(3 + TetrisCols, State, ScoreManager.HighScore);
-                tetrisConsoleWriter.DrawTetrisField(State.TetrisField);
-                tetrisConsoleWriter.DrawCurrentFigure(State.CurrentFigure, State.CurrentFigureRow, State.CurrentFigureCol);
-
+                tetrisConsoleWriter.DrawAll(State, scoreManager);
                 Thread.Sleep(40);
             }
         }
-
-        
 
         private static int CheckForFullLines() // 0, 1, 2, 3, 4
         {
@@ -228,8 +209,5 @@ namespace DemoTetris
 
             return false;
         }
-
-
-
     }
 }

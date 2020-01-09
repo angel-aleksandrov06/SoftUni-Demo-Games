@@ -15,14 +15,26 @@ namespace DemoTetris
             this.HighScore = this.GetHighScore();
         }
 
-        public int HighScore { get; set; }
+        public int Score { get; private set; }
 
-        public void UpdateHightScore(int highScoreCandidate)
+        public int HighScore { get; private set; }
+
+        public void AddToScore(int addToScore)
         {
-            if (highScoreCandidate > this.HighScore)
+            this.Score += addToScore;
+
+            if (this.Score > this.HighScore)
             {
-                this.HighScore = highScoreCandidate;
+                this.HighScore = this.Score;
             }
+        }
+
+        public void AddToHighScore()
+        {
+            File.AppendAllLines(this.highScoreFile, new List<string>
+                        {
+                            $"[{DateTime.Now.ToString()}] {Environment.UserName} => {this.Score}"
+                        });
         }
 
         private int GetHighScore()
@@ -40,14 +52,6 @@ namespace DemoTetris
             }
 
             return highScore;
-        }
-
-        public void Add(int score)
-        {
-            File.AppendAllLines(this.highScoreFile, new List<string>
-                        {
-                            $"[{DateTime.Now.ToString()}] {Environment.UserName} => {score}"
-                        });
         }
     }
 }
