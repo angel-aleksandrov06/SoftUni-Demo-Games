@@ -9,11 +9,17 @@ namespace DemoTetris
         private int infoColumns;
         private int consoleRows;
         private int consoleColumns;
+        private char tetrisCharacter;
 
-        public TetrisConsoleWriter(int tetrisRows, int tetrisColumns, int infoColumns = 11)
+        public TetrisConsoleWriter(
+            int tetrisRows, 
+            int tetrisColumns,
+            char tetrisCharacter = '*',
+            int infoColumns = 11)
         {
             this.tetrisRows = tetrisRows;
             this.tetrisColumns = tetrisColumns;
+            this.tetrisCharacter = tetrisCharacter;
             this.infoColumns = infoColumns;
             this.consoleRows = 1 + this.tetrisRows + 1;
             this.consoleColumns = 1 + this.tetrisColumns + 1 + this.infoColumns + 1;
@@ -27,7 +33,7 @@ namespace DemoTetris
             Console.CursorVisible = false;
         }
 
-        public void DrawAll(TetrisGameState state, ScoreManager scoreManager)
+        public void DrawAll(TetrisGame state, ScoreManager scoreManager)
         {
             this.DrawBorder();
             this.DrawGameState(3 + this.tetrisColumns, state, scoreManager);
@@ -35,7 +41,7 @@ namespace DemoTetris
             this.DrawCurrentFigure(state.CurrentFigure, state.CurrentFigureRow, state.CurrentFigureCol);
         }
 
-        public void DrawGameState(int startColumn, TetrisGameState state, ScoreManager scoreManager)
+        public void DrawGameState(int startColumn, TetrisGame state, ScoreManager scoreManager)
         {
             this.Write("Level:", 1, startColumn);
             this.Write(state.Level.ToString(), 2, startColumn);
@@ -109,7 +115,7 @@ namespace DemoTetris
                 {
                     if (tetrisField[row, col])
                     {
-                        line += "*";
+                        line += this.tetrisCharacter;
                     }
                     else
                     {
@@ -129,7 +135,7 @@ namespace DemoTetris
                 {
                     if (currentFigure.Body[row, col])
                     {
-                        Write("*", row + 1 + currentFigureRow, 1 + currentFigureColumn + col);
+                        Write(this.tetrisCharacter.ToString(), row + 1 + currentFigureRow, 1 + currentFigureColumn + col);
                     }
                 }
             }
