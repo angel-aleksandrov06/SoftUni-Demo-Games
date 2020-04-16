@@ -8,3 +8,5 @@ D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\bin\Debug
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.dll
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.pdb
 D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.csprojAssemblyReference.cache
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.csproj.CoreCompileInputs.cache
+D:\GitHub\SoftUni-Demo-Games\CSharp Demo Games\Demo tetris\Demo tetris\obj\Debug\netcoreapp2.1\DemoTetris.genruntimeconfig.cache

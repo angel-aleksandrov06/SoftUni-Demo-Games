@@ -1,27 +1,66 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DemoTetris
 {
-    public class TetrisGame
+    public class TetrisGame : ITetrisGame
     {
+        private readonly List<Tetrominoe> TetrisFigures = new List<Tetrominoe>()
+            {
+                new Tetrominoe(new bool[,] // ----
+                {
+                    { true, true, true, true }
+                }),
+                new Tetrominoe(new bool[,] // O
+                {
+                    { true, true },
+                    { true, true }
+                }),
+                new Tetrominoe(new bool[,] // T
+                {
+                    { false, true, false },
+                    { true, true, true },
+                }),
+                new Tetrominoe(new bool[,] // S
+                {
+                    { false, true, true, },
+                    { true, true, false, },
+                }),
+                new Tetrominoe(new bool[,] // Z
+                {
+                    { true, true, false },
+                    { false, true, true },
+                }),
+                new Tetrominoe(new bool[,] // J
+                {
+                    { true, false, false },
+                    { true, true, true }
+                }),
+                new Tetrominoe(new bool[,] // L
+                {
+                    { false, false, true },
+                    { true, true, true }
+                }),
+            };
+
+        private Random random;
+
         public TetrisGame(int tetrisRows, int tetrisColumns)
         {
-            this.Frame = 0;
             this.Level = 1;
-            this.FramesToMoveFigure = 16;
             this.CurrentFigure = null;
             this.CurrentFigureRow = 0;
             this.CurrentFigureCol = 0;
             this.TetrisField = new bool[tetrisRows, tetrisColumns];
             this.TetrisRows = tetrisRows;
             this.TetrisColumns = tetrisColumns;
+            this.random = new Random();
+            this.NewRandomFugire();
         }
-        
-        public int Frame { get; set; }
+
 
         public int Level { get; private set; }
 
-        public int FramesToMoveFigure { get; private set; }
 
         public Tetrominoe CurrentFigure { get; set; }
 
@@ -51,6 +90,13 @@ namespace DemoTetris
             {
                 this.Level = 10;
             }
+        }
+
+        public void NewRandomFugire()
+        {
+            this.CurrentFigure = TetrisFigures[this.random.Next(0, this.TetrisFigures.Count)];
+            this.CurrentFigureRow = 0;
+            this.CurrentFigureCol = this.TetrisColumns / 2 - this.CurrentFigure.Width / 2 - 1;
         }
 
         public void AddCurrentFigureToTetrisField()
